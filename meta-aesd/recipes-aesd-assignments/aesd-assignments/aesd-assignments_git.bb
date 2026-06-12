@@ -8,13 +8,14 @@ SRC_URI = "git://github.com/cu-ecen-aeld/assignments-3-and-later-artb83.git;prot
 
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
-SRCREV = "9f4e02e48d955f1628f9aa442b5f444eb10b4e7f"
+SRCREV = "65da66d8e11ba9b49c6e412684afae6920ca5cc3"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
 # We reference the "server" directory here to build from the "server" directory
 # in your assignments repo
 S = "${WORKDIR}/git/server"
+
 
 # TODO: Add the aesdsocket application and any other files you need to install
 # See https://git.yoctoproject.org/poky/plain/meta/conf/bitbake.conf?h=kirkstone
@@ -23,6 +24,9 @@ FILES:${PN} +="${sysconfdir}/init.d/aesdsocket-start-stop"
 
 # TODO: customize these as necessary for any libraries you need for your application
 # (and remove comment)
+# Remove Gold linker flags and add Bfd instead
+#TARGET_LDFLAGS:remove = "-fuse-ld=gold"
+#TARGET_LDFLAGS += "-fuse-ld=bfd"
 
 do_configure () {
 	:
